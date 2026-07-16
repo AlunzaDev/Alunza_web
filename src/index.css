@@ -176,6 +176,27 @@ strong {
   }
 }
 
+/* ── Refuerzo CSS para prefers-reduced-motion ─────────────────────────── */
+/*  El componente StaticLanding en App.jsx ya evita el scroll-jacking y las */
+/*  animaciones de motion; esto además detiene animaciones puramente CSS    */
+/*  (como el horizonte de fondo) por si el usuario cambia la preferencia    */
+/*  del sistema en vivo o en cualquier otro escenario no cubierto por JS.   */
+@media (prefers-reduced-motion: reduce) {
+  .alunza-horizon::before,
+  .alunza-horizon::after {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 @media (max-width: 380px) {
   .brand-lockup {
     max-width: 112px;

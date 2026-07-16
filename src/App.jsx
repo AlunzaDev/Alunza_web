@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, useMotionValue, useTransform } from 'framer-motion'
 import {
   BriefcaseBusiness,
@@ -23,10 +23,109 @@ const pillars = [
 ]
 
 /* ─────────────────────────────────────────────────────────────────────────── */
+/*  HOOK: prefers-reduced-motion                                                */
+/*  Detecta la preferencia del sistema y reacciona si cambia en vivo.           */
+/* ─────────────────────────────────────────────────────────────────────────── */
+
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(
+    () => typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  )
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const onChange = (e) => setReduced(e.matches)
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [])
+
+  return reduced
+}
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+/*  VERSIÓN ESTÁTICA (prefers-reduced-motion: reduce)                           */
+/*  Mismo contenido y estilos finales, sin scroll-jacking ni animaciones.       */
+/*  Ocupa el flujo normal del documento (sin position: fixed ni spacer 600vh).  */
+/* ─────────────────────────────────────────────────────────────────────────── */
+
+function StaticLanding() {
+  return (
+    <div className="relative min-h-screen overflow-hidden bg-white">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_47%,rgba(0,83,181,0.11),transparent_18%),linear-gradient(180deg,#ffffff_0%,#ffffff_66%,#eef6ff_100%)]"
+      />
+      <div
+        aria-hidden="true"
+        className="alunza-horizon pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[24vh] min-h-32 overflow-hidden"
+      />
+
+      <div className="flex min-h-screen flex-col items-center justify-between gap-8 px-4 py-8 text-center sm:px-8 sm:py-10 lg:px-12">
+        <img
+          src="/ALUNZA-LOGO-BLACK_TXT.png"
+          alt="Alunza Corporativo"
+          className="w-full max-w-[132px] object-contain sm:max-w-[205px] lg:max-w-[245px]"
+        />
+
+        <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center">
+          <div className="flex w-full flex-col items-center">
+            <h1 className="max-w-5xl text-balance text-[clamp(1.45rem,7vw,3.25rem)] font-light leading-[1.08] tracking-normal text-[#050b24] sm:text-[clamp(1.85rem,3.6vw,3.25rem)]">
+              Construimos <strong>procesos sólidos</strong>
+              <br />
+              para impulsar <strong>organizaciones sólidas.</strong>
+            </h1>
+            <span className="mt-2 block h-px w-16 bg-[#0052bc] sm:mt-3 sm:w-20" />
+          </div>
+
+          <div className="mt-3 max-w-3xl space-y-1.5 text-balance text-[0.76rem] leading-[1.35] text-[#151b35] sm:mt-4 sm:space-y-2 sm:text-[clamp(0.86rem,1.05vw,1rem)] sm:leading-[1.45]">
+            <p>
+              En ALUNZA integramos las capacidades corporativas que fortalecen la
+              operación y el desarrollo de un grupo empresarial.
+            </p>
+            <p>
+              Bajo una visión compartida de colaboración, eficiencia y mejora
+              continua, impulsamos el crecimiento mediante una gestión profesional,
+              procesos confiables y una dirección estratégica orientada al futuro.
+            </p>
+          </div>
+
+          <div className="pillar-grid mt-4 grid w-full max-w-5xl grid-cols-2 gap-y-3 sm:grid-cols-3 lg:mt-5 lg:grid-cols-6 lg:gap-y-0">
+            {pillars.map(({ label, icon: Icon }) => (
+              <div key={label} className="pillar">
+                <div className="flex flex-col items-center gap-1.5">
+                  <Icon aria-hidden="true" size={32} strokeWidth={1.8} />
+                  <span>{label}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <footer className="relative z-10 w-full">
+          <p className="tagline mx-auto max-w-4xl text-balance text-[0.86rem] font-light leading-[1.35] tracking-[0.16em] text-[#12162d] sm:text-[clamp(1rem,1.85vw,1.45rem)] sm:leading-[1.45] sm:tracking-[0.22em]">
+            ALUNZA no es una marca.
+            <br />
+            Es un movimiento <span className="tagline-blue">hacia arriba.</span>
+          </p>
+          <div className="mt-2 flex items-center justify-center gap-3 text-[0.68rem] text-[#1b223d] sm:mt-3 sm:gap-4 sm:text-sm">
+            <span>© 2009 Alunza Corporativo</span>
+            <span className="h-4 w-px bg-[#0052bc]" />
+            <span>Sitio institucional</span>
+          </div>
+        </footer>
+      </div>
+    </div>
+  )
+}
+
+/* ─────────────────────────────────────────────────────────────────────────── */
 /*  APP                                                                         */
 /* ─────────────────────────────────────────────────────────────────────────── */
 
 export default function App() {
+  const prefersReducedMotion = usePrefersReducedMotion()
+
   /*
    * `progress` sube de 0→1 mientras se scrollea de arriba a abajo.
    * No usamos useScroll de framer-motion para tener control total.
@@ -35,6 +134,7 @@ export default function App() {
   const progress = useMotionValue(0)
 
   useEffect(() => {
+    if (prefersReducedMotion) return
     function onScroll() {
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight
       if (maxScroll <= 0) return
@@ -43,7 +143,7 @@ export default function App() {
     window.addEventListener('scroll', onScroll, { passive: true })
     onScroll()
     return () => window.removeEventListener('scroll', onScroll)
-  }, [progress])
+  }, [progress, prefersReducedMotion])
 
   /* ── ACT 1: Overlay con logo grande ───────────────────────────────────── */
   /*  0.00 → 0.18: el overlay cubre todo y el logo flota                      */
@@ -55,35 +155,51 @@ export default function App() {
   /* ── ACT 2: Headline épico (pantalla completa, stagger por línea) ──────── */
   /*  Cada línea entra desde abajo con desfase, luego todas salen juntas       */
   /*  arriba. El reverso también se anima (salen por abajo, entran por arriba) */
+  /*  La salida (0.39→0.43) es corta y suma un ligero "encogimiento" (scale)   */
+  /*  para que se lea como algo que se retira, no como un texto fantasma       */
+  /*  flotando encima del headline chico que entra después.                   */
 
   // Línea 0 — "Construimos" (primera en entrar, última en salir al subir)
-  const l0Op = useTransform(progress, [0.20, 0.27, 0.38, 0.44], [0, 1, 1, 0])
-  const l0Y  = useTransform(progress, [0.20, 0.27, 0.38, 0.44], [90, 0, 0, -70])
+  const l0Op = useTransform(progress, [0.20, 0.27, 0.37, 0.44], [0, 1, 1, 0])
+  const l0Y  = useTransform(progress, [0.20, 0.27, 0.37, 0.44], [90, 0, 0, -70])
+  const l0Sc = useTransform(progress, [0.37, 0.44], [1, 0.9])
 
   // Línea 1 — "procesos sólidos"
-  const l1Op = useTransform(progress, [0.225, 0.295, 0.38, 0.44], [0, 1, 1, 0])
-  const l1Y  = useTransform(progress, [0.225, 0.295, 0.38, 0.44], [90, 0, 0, -70])
+  const l1Op = useTransform(progress, [0.225, 0.295, 0.37, 0.44], [0, 1, 1, 0])
+  const l1Y  = useTransform(progress, [0.225, 0.295, 0.37, 0.44], [90, 0, 0, -70])
+  const l1Sc = useTransform(progress, [0.37, 0.44], [1, 0.9])
 
   // Línea 2 — "para impulsar"
-  const l2Op = useTransform(progress, [0.25, 0.32, 0.38, 0.44], [0, 1, 1, 0])
-  const l2Y  = useTransform(progress, [0.25, 0.32, 0.38, 0.44], [90, 0, 0, -70])
+  const l2Op = useTransform(progress, [0.25, 0.32, 0.37, 0.44], [0, 1, 1, 0])
+  const l2Y  = useTransform(progress, [0.25, 0.32, 0.37, 0.44], [90, 0, 0, -70])
+  const l2Sc = useTransform(progress, [0.37, 0.44], [1, 0.9])
 
   // Línea 3 — "organizaciones sólidas." (última en entrar, primera en salir al subir)
-  const l3Op = useTransform(progress, [0.275, 0.345, 0.38, 0.44], [0, 1, 1, 0])
-  const l3Y  = useTransform(progress, [0.275, 0.345, 0.38, 0.44], [90, 0, 0, -70])
+  const l3Op = useTransform(progress, [0.275, 0.345, 0.37, 0.44], [0, 1, 1, 0])
+  const l3Y  = useTransform(progress, [0.275, 0.345, 0.37, 0.44], [90, 0, 0, -70])
+  const l3Sc = useTransform(progress, [0.37, 0.44], [1, 0.9])
 
   /* ── ACT 3: Headline pequeño + párrafos ────────────────────────────────── */
-  /*  Aparece al llegar a Act 3, se va en Act 4, vuelve en Act 5 (final)       */
+  /*  CROSSFADE REAL con el Acto 2: usamos exactamente la misma ventana        */
+  /*  [0.37, 0.44] en la que el texto épico se apaga y encoge (l*Sc 1→0.9),    */
+  /*  así el headline chico aparece y se "asienta" (hScale 1.08→1) AL MISMO    */
+  /*  tiempo que el grande se retira. Se lee como una sola transformación      */
+  /*  continua (el texto grande se encoge en el chico) en vez de dos textos    */
+  /*  separados que se prenden/apagan con un corte en medio.                  */
   const hOp = useTransform(
     progress,
-    [0.44, 0.52,  0.58, 0.65,  0.80, 0.87],
+    [0.37, 0.44,  0.58, 0.65,  0.80, 0.87],
     [0,    1,     1,    0,     0,    1   ]
   )
   const hY = useTransform(
     progress,
-    [0.44, 0.52,  0.58, 0.65,  0.80, 0.87],
-    [30,   0,     0,   -20,    20,   0   ]
+    [0.37, 0.44,  0.58, 0.65,  0.80, 0.87],
+    [16,   0,     0,   -20,    20,   0   ]
   )
+  // Entra ligeramente "grande" y se asienta a escala normal, en sincronía
+  // con el encogimiento del texto épico — refuerza la sensación de que es
+  // el mismo texto transformándose, no uno nuevo apareciendo.
+  const hScale = useTransform(progress, [0.37, 0.44], [1.08, 1])
 
   // Divisor azul
   const dvOp  = useTransform(
@@ -120,10 +236,10 @@ export default function App() {
 
   /* ── Arrays para iterar en JSX (sin llamar hooks en loops) ─────────────── */
   const bigLines = [
-    { op: l0Op, y: l0Y, text: 'Construimos',          strong: false },
-    { op: l1Op, y: l1Y, text: 'procesos sólidos',      strong: true  },
-    { op: l2Op, y: l2Y, text: 'para impulsar',         strong: false },
-    { op: l3Op, y: l3Y, text: 'organizaciones sólidas.',strong: true  },
+    { op: l0Op, y: l0Y, scale: l0Sc, text: 'Construimos',          strong: false },
+    { op: l1Op, y: l1Y, scale: l1Sc, text: 'procesos sólidos',      strong: true  },
+    { op: l2Op, y: l2Y, scale: l2Sc, text: 'para impulsar',         strong: false },
+    { op: l3Op, y: l3Y, scale: l3Sc, text: 'organizaciones sólidas.',strong: true  },
   ]
 
   const pillarMotion = [
@@ -134,6 +250,12 @@ export default function App() {
     { op: p4Op, y: p4Y },
     { op: p5Op, y: p5Y },
   ]
+
+  /* Si el usuario prefiere menos movimiento, se sirve el contenido final    */
+  /* directo, sin scroll-jacking, overlays ni animaciones infinitas.        */
+  if (prefersReducedMotion) {
+    return <StaticLanding />
+  }
 
   /* ─────────────────────────────────────────────────────────────────────── */
   return (
@@ -170,7 +292,7 @@ export default function App() {
 
             {/* Headline pequeño — Act 3 + Act 5 */}
             <motion.div
-              style={{ opacity: hOp, y: hY }}
+              style={{ opacity: hOp, y: hY, scale: hScale }}
               className="flex w-full flex-col items-center"
             >
               <h1 className="hero-headline max-w-5xl text-balance text-[clamp(1.45rem,7vw,3.25rem)] font-light leading-[1.08] tracking-normal text-[#050b24] sm:text-[clamp(1.85rem,3.6vw,3.25rem)]">
@@ -252,10 +374,10 @@ export default function App() {
           className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-center px-6 sm:px-16 lg:px-24"
         >
           <div className="w-full max-w-5xl">
-            {bigLines.map(({ op, y, text, strong }) => (
+            {bigLines.map(({ op, y, scale, text, strong }) => (
               <motion.div
                 key={text}
-                style={{ opacity: op, y }}
+                style={{ opacity: op, y, scale }}
                 className={[
                   'block leading-[1.05] tracking-tight',
                   'text-[clamp(2.4rem,6.5vw,5.8rem)]',
