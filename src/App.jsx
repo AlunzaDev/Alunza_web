@@ -271,20 +271,42 @@ export default function App() {
         </div>
 
         {/* ── ACT 1: Overlay intro logo (z-20, encima de todo) ──────── */}
+        {/*  El logo se "ensambla" en 3 piezas al cargar la página:           */}
+        {/*  1) Ícono azul cae con rebote  2) ALUNZA barre  3) CORP expande  */}
         <motion.div
           style={{ opacity: ov1Opacity }}
-          className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center bg-white px-6"
+          className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center bg-white"
         >
-          {/* Wrapper: escala + Y controlados por scroll */}
-          <motion.div style={{ scale: ov1Scale, y: ov1Y }}>
-            {/* Img: solo la animación de flotación */}
+          {/* Wrapper: escala + Y controlados por scroll (exit animation) */}
+          <motion.div style={{ scale: ov1Scale, y: ov1Y }} className="logo-intro">
+
+            {/* 1. Ícono azul — cae desde arriba con spring bounce */}
+            {/*    Flotación idle empieza a los 1.2 s (tras el ensamblado) */}
             <motion.img
+              className="logo-icon"
+              src="/ALUNZA LOGO FAVICON.png"
+              alt=""
+              aria-hidden="true"
               animate={{ y: [0, -14, 0] }}
-              transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
-              src="/ALUNZA-LOGO-BLACK_TXT.png"
-              alt="Alunza Corporativo"
-              className="w-[min(82vw,760px)] object-contain sm:w-[min(72vw,760px)]"
+              transition={{ delay: 1.2, duration: 3, repeat: Infinity, ease: 'easeInOut' }}
             />
+
+            {/* 2. ALUNZA.png — fuente original, barre de izquierda a derecha */}
+            <img
+              className="logo-alunza-img"
+              src="/ALUNZA.png"
+              alt="ALUNZA"
+              aria-hidden="true"
+            />
+
+            {/* 3. CORPORATIVO.png — fuente original, sube con fade */}
+            <img
+              className="logo-corp-img"
+              src="/CORPORATIVO.png"
+              alt="Corporativo"
+              aria-hidden="true"
+            />
+
           </motion.div>
         </motion.div>
 
