@@ -22,7 +22,7 @@ function PillarGrid({ style }) {
   return (
     <motion.div
       style={style}
-      className="mt-5 grid w-full max-w-5xl grid-cols-2 gap-y-4 sm:grid-cols-3 lg:grid-cols-6 lg:gap-y-0"
+      className="pillar-grid mt-4 grid w-full max-w-5xl grid-cols-2 gap-y-3 sm:grid-cols-3 lg:mt-5 lg:grid-cols-6 lg:gap-y-0"
     >
       {pillars.map(({ label, icon: Icon }, index) => (
         <div className="pillar" key={label}>
@@ -61,15 +61,15 @@ function FinalFrame({
   const Footer = animated ? motion.footer : 'footer'
 
   return (
-    <div className="alunza-hero relative isolate flex h-[100svh] min-h-[640px] flex-col items-center justify-between overflow-hidden px-5 pb-4 pt-5 text-center sm:px-8 lg:px-12">
+    <div className="alunza-hero relative isolate flex h-[100svh] min-h-[620px] flex-col items-center justify-between overflow-hidden px-4 pb-3 pt-4 text-center sm:px-8 sm:pb-4 sm:pt-5 lg:px-12">
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_47%,rgba(0,83,181,0.11),transparent_18%),linear-gradient(180deg,#ffffff_0%,#ffffff_66%,#eef6ff_100%)]" />
-      <div className="alunza-horizon pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[24vh] min-h-36 overflow-hidden" />
+      <div className="alunza-horizon pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[24vh] min-h-32 overflow-hidden" />
 
       <Image
         style={brandStyle}
         src="/ALUNZA-LOGO-BLACK_TXT.png"
         alt="Alunza Corporativo"
-        className="w-full max-w-[155px] object-contain sm:max-w-[205px] lg:max-w-[245px]"
+        className="brand-lockup w-full max-w-[132px] object-contain sm:max-w-[205px] lg:max-w-[245px]"
       />
 
       <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center">
@@ -77,20 +77,20 @@ function FinalFrame({
           style={headlineStyle}
           className="flex w-full flex-col items-center"
         >
-          <h1 className="max-w-5xl text-balance text-[clamp(1.85rem,3.6vw,3.25rem)] font-light leading-[1.08] tracking-normal text-[#050b24]">
+          <h1 className="hero-headline max-w-5xl text-balance text-[clamp(1.45rem,7vw,3.25rem)] font-light leading-[1.08] tracking-normal text-[#050b24] sm:text-[clamp(1.85rem,3.6vw,3.25rem)]">
             Construimos <strong>procesos sólidos</strong>
             <br />
             para impulsar <strong>organizaciones sólidas.</strong>
           </h1>
           <Divider
             style={dividerStyle}
-            className="mt-3 h-px w-20 origin-center bg-[#0052bc]"
+            className="mt-2 h-px w-16 origin-center bg-[#0052bc] sm:mt-3 sm:w-20"
           />
         </Headline>
 
         <Paragraphs
           style={paragraphStyle}
-          className="mt-4 max-w-3xl space-y-2 text-balance text-[clamp(0.86rem,1.05vw,1rem)] leading-[1.45] text-[#151b35]"
+          className="hero-copy mt-3 max-w-3xl space-y-1.5 text-balance text-[0.76rem] leading-[1.35] text-[#151b35] sm:mt-4 sm:space-y-2 sm:text-[clamp(0.86rem,1.05vw,1rem)] sm:leading-[1.45]"
         >
           <p>
             En ALUNZA integramos las capacidades corporativas que fortalecen la
@@ -107,12 +107,12 @@ function FinalFrame({
       </div>
 
       <Footer style={footerStyle} className="relative z-10 w-full">
-        <p className="mx-auto max-w-4xl text-balance text-[clamp(1rem,1.85vw,1.45rem)] font-light leading-[1.45] tracking-[0.22em] text-[#12162d]">
+        <p className="tagline mx-auto max-w-4xl text-balance text-[0.86rem] font-light leading-[1.35] tracking-[0.16em] text-[#12162d] sm:text-[clamp(1rem,1.85vw,1.45rem)] sm:leading-[1.45] sm:tracking-[0.22em]">
           ALUNZA no es una marca.
           <br />
           Es un movimiento <span className="tagline-blue">hacia arriba.</span>
         </p>
-        <div className="mt-3 flex items-center justify-center gap-4 text-xs text-[#1b223d] sm:text-sm">
+        <div className="mt-2 flex items-center justify-center gap-3 text-[0.68rem] text-[#1b223d] sm:mt-3 sm:gap-4 sm:text-sm">
           <span>© 2009 Alunza Corporativo</span>
           <span className="h-4 w-px bg-[#0052bc]" />
           <span>Sitio institucional</span>
@@ -138,8 +138,8 @@ function App() {
   const brandY = useTransform(scrollYProgress, [0.18, 0.28], [-24, 0])
 
   const headlineOpacity = useTransform(scrollYProgress, [0.2, 0.3], [0, 1])
-  const headlineScale = useTransform(scrollYProgress, [0.2, 0.34, 0.44], [1.18, 1, 0.86])
-  const headlineY = useTransform(scrollYProgress, [0.2, 0.34, 0.44], [42, 0, -12])
+  const headlineScale = useTransform(scrollYProgress, [0.2, 0.34], [1.18, 1])
+  const headlineY = useTransform(scrollYProgress, [0.2, 0.34], [42, 0])
 
   const dividerOpacity = useTransform(scrollYProgress, [0.38, 0.46], [0, 1])
   const dividerScaleX = useTransform(scrollYProgress, [0.38, 0.46], [0, 1])
@@ -191,7 +191,7 @@ function App() {
               }}
               src="/ALUNZA-LOGO-BLACK_TXT.png"
               alt="Alunza Corporativo"
-              className="w-[min(72vw,760px)] object-contain"
+              className="w-[min(82vw,760px)] object-contain sm:w-[min(72vw,760px)]"
             />
           </motion.div>
         </div>

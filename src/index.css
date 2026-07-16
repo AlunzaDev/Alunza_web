@@ -103,11 +103,62 @@ strong {
 }
 
 @media (max-width: 639px) {
+  .alunza-hero {
+    min-height: 100svh;
+  }
+
+  .pillar {
+    min-height: 48px;
+  }
+
+  .pillar svg {
+    height: 24px;
+    width: 24px;
+  }
+
+  .pillar span {
+    font-size: 0.56rem;
+  }
+
   .pillar:nth-child(2n)::after {
     display: none;
   }
 
   .pillar:nth-child(3)::after {
     display: block;
+  }
+}
+
+@media (max-width: 380px) {
+  .brand-lockup {
+    max-width: 112px;
+  }
+
+  .hero-headline {
+    font-size: 1.28rem;
+  }
+
+  .hero-copy {
+    font-size: 0.68rem;
+    line-height: 1.28;
+  }
+
+  .pillar-grid {
+    margin-top: 0.65rem;
+    row-gap: 0.55rem;
+  }
+
+  .pillar {
+    min-height: 42px;
+  }
+
+  .pillar svg {
+    height: 21px;
+    width: 21px;
+  }
+
+  .tagline {
+    font-size: 0.74rem;
+    letter-spacing: 0.11em;
   }
 }
