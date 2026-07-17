@@ -161,6 +161,7 @@ function StaticLanding() {
 
 export default function App() {
   const prefersReducedMotion = usePrefersReducedMotion()
+  const [isIntroBreathing, setIsIntroBreathing] = useState(true)
 
   const progress = useMotionValue(0)
 
@@ -177,6 +178,10 @@ export default function App() {
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight
       if (maxScroll <= 0) return
       progress.set(Math.min(Math.max(window.scrollY / maxScroll, 0), 1))
+      setIsIntroBreathing((current) => {
+        const next = window.scrollY <= 2
+        return current === next ? current : next
+      })
     }
     window.addEventListener('scroll', onScroll, { passive: true })
     onScroll()
@@ -422,21 +427,32 @@ export default function App() {
           <motion.div style={{ scale: ov1Scale, y: ov1Y }} className="logo-intro">
 
             {/* 1. Ícono azul — aparece con CSS al montar, luego flota */}
-            <motion.img
-              className="logo-icon"
-              src="/ALUNZA LOGO FAVICON.png"
-              alt=""
+            <motion.div
               aria-hidden="true"
-              animate={{ y: [0, -6, 0], scale: [1, 1.015, 1] }}
-              transition={{
-                duration: 3.2,
-                times: [0, 0.5, 1],
-                ease: 'easeInOut',
-                repeat: Infinity,
-                repeatDelay: 0.4,
-                delay: 1.1,
-              }}
-            />
+              animate={
+                isIntroBreathing
+                  ? { y: [0, -5, 0], scale: [1, 1.08, 1] }
+                  : { y: 0, scale: 1 }
+              }
+              transition={
+                isIntroBreathing
+                  ? {
+                      duration: 2.4,
+                      times: [0, 0.5, 1],
+                      ease: 'easeInOut',
+                      repeat: Infinity,
+                      repeatDelay: 0.15,
+                      delay: 0.85,
+                    }
+                  : { duration: 0.28, ease: 'easeOut' }
+              }
+            >
+              <img
+                className="logo-icon"
+                src="/ALUNZA LOGO FAVICON.png"
+                alt=""
+              />
+            </motion.div>
 
             {/* 2. ALUNZA.png — wrapper con overflow:hidden cuyo ancho va 0%→1000% */}
             {/*    La imagen dentro tiene ancho fijo; el padre la va descubriendo   */}
