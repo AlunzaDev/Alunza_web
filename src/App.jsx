@@ -111,7 +111,7 @@ function StaticLanding() {
           <div className="mt-2 flex items-center justify-center gap-3 text-[0.68rem] text-[#1b223d] sm:mt-3 sm:gap-4 sm:text-sm">
             <span>© 2009 Alunza Corporativo</span>
             <span className="h-4 w-px bg-[#0052bc]" />
-            <span>Sitio institucional</span>
+            <span>Más de 15 años</span>
           </div>
         </footer>
       </div>
@@ -338,7 +338,9 @@ export default function App() {
             <div className="mt-2 flex items-center justify-center gap-3 text-[0.68rem] text-[#1b223d] sm:mt-3 sm:gap-4 sm:text-sm">
               <span>© 2009 Alunza Corporativo</span>
               <span className="h-4 w-px bg-[#0052bc]" />
-              <span>Sitio institucional</span>
+              <span>Más de 15 años</span>
+               <span className="h-4 w-px bg-[#0052bc]" />
+              <span>Sitio Oficial</span>
             </div>
           </motion.footer>
         </div>
