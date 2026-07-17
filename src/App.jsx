@@ -190,6 +190,8 @@ export default function App() {
   const par2Op    = useTransform(progress, [0.56, 0.64], [0, 1])
   const par2BlurN = useTransform(progress, [0.56, 0.64], [10, 0])
   const par2Blur  = useMotionTemplate`blur(${par2BlurN}px)`
+  const copyY      = useTransform(progress, [0.50, 0.68, 0.78, 0.88], [-105, -105, -20, 0])
+  const copyScale  = useTransform(progress, [0.50, 0.68, 0.78, 0.88], [1.3, 1.3, 1.08, 1])
 
   /* Headline — solo en el estado final (Act 5). En Act 3 no aparece.        */
   const hOp = useTransform(progress, [0.82, 0.88], [0, 1])
@@ -287,7 +289,10 @@ export default function App() {
             {/*  Párrafo 1 emerge del blur al foco.                              */}
             {/*  Párrafo 2 hace lo mismo, un poco después.                       */}
             {/*  Nada de slides verticales — efecto editorial, cinematográfico.  */}
-            <div className="hero-copy max-w-2xl space-y-5 text-balance text-[clamp(1rem,1.6vw,1.3rem)] leading-[1.6] text-[#151b35]">
+            <motion.div
+              style={{ y: copyY, scale: copyScale }}
+              className="hero-copy max-w-2xl space-y-5 text-balance text-[clamp(1rem,1.6vw,1.3rem)] leading-[1.6] text-[#151b35]"
+            >
               <motion.p style={{ opacity: par1Op, filter: par1Blur }}>
                 En ALUNZA integramos las capacidades corporativas que fortalecen la
                 operación y el desarrollo de un grupo empresarial.
@@ -297,7 +302,7 @@ export default function App() {
                 continua, impulsamos el crecimiento mediante una gestión profesional,
                 procesos confiables y una dirección estratégica orientada al futuro.
               </motion.p>
-            </div>
+            </motion.div>
 
             {/* Pilares — Act 4 → final (stagger individual) */}
             <div className="pillar-grid mt-4 grid w-full max-w-5xl grid-cols-2 gap-y-3 sm:grid-cols-3 lg:mt-5 lg:grid-cols-6 lg:gap-y-0">
