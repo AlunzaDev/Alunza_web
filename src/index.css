@@ -215,7 +215,7 @@ strong {
 }
 
 .pillar-grid {
-  margin-top: clamp(0.65rem, 1.55svh, 0.95rem);
+  margin-top: clamp(2rem, 4.8svh, 3.25rem);
 }
 
 .footer-meta {
@@ -358,7 +358,7 @@ strong {
   }
 
   .pillar-grid {
-    margin-top: 0.58rem;
+    margin-top: 1.35rem;
     row-gap: 0.42rem;
   }
 
@@ -506,7 +506,7 @@ strong {
   }
 
   .pillar-grid {
-    margin-top: 0.65rem;
+    margin-top: 1.15rem;
     row-gap: 0.55rem;
   }
 
