@@ -168,6 +168,27 @@ strong {
   width: clamp(90px, 14vw, 155px);
 }
 
+.scroll-cue {
+  align-items: center;
+  color: #0052bc;
+  display: flex;
+  flex-direction: column;
+  gap: 0.08rem;
+  inset-inline: 0;
+  justify-content: center;
+  pointer-events: none;
+  position: absolute;
+  bottom: clamp(2rem, 7vh, 4.5rem);
+}
+
+.scroll-cue span {
+  font-size: clamp(0.64rem, 1.1vw, 0.78rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
 /* 2. Wrapper de ALUNZA — overflow:hidden; el ancho lo anima framer-motion */
 .logo-alunza-wrapper {
   margin-top: clamp(0.2rem, 0.8vw, 0.55rem);

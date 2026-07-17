@@ -4,6 +4,7 @@ import {
   BriefcaseBusiness,
   ChartNoAxesColumnIncreasing,
   ChartPie,
+  ChevronDown,
   Landmark,
   Monitor,
   UsersRound,
@@ -478,6 +479,31 @@ export default function App() {
               aria-hidden="true"
             />
 
+          </motion.div>
+
+          <motion.div
+            className="scroll-cue"
+            aria-hidden="true"
+            initial={{ opacity: 0, y: 6 }}
+            animate={
+              isIntroBreathing
+                ? { opacity: [0.48, 0.92, 0.48], y: [0, 9, 0] }
+                : { opacity: 0, y: 12 }
+            }
+            transition={
+              isIntroBreathing
+                ? {
+                    duration: 1.7,
+                    times: [0, 0.5, 1],
+                    ease: 'easeInOut',
+                    repeat: Infinity,
+                    delay: 1.25,
+                  }
+                : { duration: 0.2, ease: 'easeOut' }
+            }
+          >
+            <span>Desliza</span>
+            <ChevronDown size={22} strokeWidth={1.8} />
           </motion.div>
         </motion.div>
 
