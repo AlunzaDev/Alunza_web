@@ -1,0 +1,13 @@
+﻿.brand-lockup {
+  flex: 0 0 auto;
+  justify-self: center;
+  position: relative;
+  top: clamp(0.85rem, 2.8svh, 2.2rem);
+  width: clamp(360px, 31vw, 620px);
+}
+
+.brand-lockup-art {
+  display: block;
+  height: auto;
+  width: 100%;
+}

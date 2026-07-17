@@ -1,0 +1,97 @@
+﻿.pillar {
+  color: #004db3;
+  display: flex;
+  justify-content: center;
+  min-height: 72px;
+  position: relative;
+}
+
+.pillar:not(:last-child)::after {
+  background: linear-gradient(180deg, transparent, #b9becb 18%, #b9becb 82%, transparent);
+  content: "";
+  height: 80%;
+  position: absolute;
+  right: 0;
+  top: 10%;
+  width: 1px;
+}
+
+.pillar span {
+  color: #060a1b;
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.pillar-grid {
+  margin-top: clamp(2rem, 4.8svh, 3.25rem);
+}
+
+.pillar-trigger {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+  position: relative;
+  width: 100%;
+}
+
+.pillar-trigger:focus-visible {
+  outline: 2px solid rgba(0, 82, 188, 0.55);
+  outline-offset: 8px;
+}
+
+.pillar-detail {
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(238, 246, 255, 0.62));
+  border: 1px solid rgba(0, 82, 188, 0.16);
+  border-radius: 8px;
+  bottom: calc(100% + 12px);
+  box-shadow: 0 18px 42px rgba(5, 11, 36, 0.14);
+  color: #111832;
+  left: 50%;
+  line-height: 1.35;
+  max-width: min(76vw, 220px);
+  opacity: 0;
+  padding: 0.75rem 0.85rem;
+  pointer-events: none;
+  position: absolute;
+  text-align: center;
+  text-transform: none;
+  transform: translate(-50%, 8px) scale(0.96);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+  width: max-content;
+  z-index: 30;
+}
+
+.pillar .pillar-detail {
+  color: #111832;
+  font-size: 0.74rem;
+  font-weight: 600;
+  text-transform: none;
+}
+
+.pillar-detail::after {
+  background: rgba(255, 255, 255, 0.72);
+  border-bottom: 1px solid rgba(0, 82, 188, 0.14);
+  border-right: 1px solid rgba(0, 82, 188, 0.14);
+  bottom: -6px;
+  content: "";
+  height: 10px;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%) rotate(45deg);
+  width: 10px;
+}
+
+.pillar-trigger:hover .pillar-detail,
+.pillar-trigger:focus-visible .pillar-detail {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+}

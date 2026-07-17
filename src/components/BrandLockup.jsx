@@ -10,7 +10,7 @@ export function BrandLockup({ motionStyle, staticClassName = '' }) {
 
   const image = (
     <img
-      src="/ALUNZA-LOGO-BLACK_TXT.png"
+      src="/ALUNZA-LOCKUP-CLEAN.png"
       alt="Alunza Corporativo"
       className="brand-lockup-art"
     />
