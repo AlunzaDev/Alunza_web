@@ -99,16 +99,20 @@ strong {
   width: clamp(90px, 14vw, 155px);
 }
 
-/* 2. ALUNZA.png — barre de izquierda a derecha */
-.logo-alunza-img {
-  animation: logo-alunza-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) 1.0s both;
-  width: clamp(160px, 36vw, 480px);
+/* 2. Wrapper de ALUNZA — overflow:hidden; el ancho lo anima framer-motion */
+.logo-alunza-wrapper {
   margin-top: clamp(0.2rem, 0.8vw, 0.55rem);
+  /* El ancho real lo inyecta framer-motion via style={{ width }} */
 }
 
-/* 3. CORPORATIVO.png — sube con fade */
+/* 2. ALUNZA.png — siempre a su tamaño natural dentro del wrapper */
+.logo-alunza-img {
+  display: block;
+  width: clamp(160px, 36vw, 480px);
+}
+
+/* 3. CORPORATIVO.png — opacidad y Y los controla framer-motion */
 .logo-corp-img {
-  animation: logo-corp-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) 1.7s both;
   width: clamp(130px, 28vw, 380px);
   margin-top: clamp(0.1rem, 0.5vw, 0.35rem);
 }
@@ -117,16 +121,6 @@ strong {
   0%   { opacity: 0; transform: translateY(-45px) scale(0.8);  }
   65%  {             transform: translateY(5px)   scale(1.05); }
   100% { opacity: 1; transform: translateY(0)     scale(1);    }
-}
-
-@keyframes logo-alunza-in {
-  from { clip-path: inset(0 100% 0 0); }
-  to   { clip-path: inset(0 0%   0 0); }
-}
-
-@keyframes logo-corp-in {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0);    }
 }
 
 /* ── Fin animaciones logo ─────────────────────────────────────────────── */

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { motion, useMotionValue, useTransform } from 'framer-motion'
+import { motion, useMotionValue, useTransform, useMotionTemplate } from 'framer-motion'
 import {
   BriefcaseBusiness,
   ChartNoAxesColumnIncreasing,
@@ -126,12 +126,14 @@ function StaticLanding() {
 export default function App() {
   const prefersReducedMotion = usePrefersReducedMotion()
 
-  /*
-   * `progress` sube de 0→1 mientras se scrollea de arriba a abajo.
-   * No usamos useScroll de framer-motion para tener control total.
-   * El progreso puede ir en ambas direcciones (animación reversa al subir).
-   */
   const progress = useMotionValue(0)
+
+  /* Scroll al top en cada refresh — evita que el browser restaure posición */
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    window.history.scrollRestoration = 'manual'
+    window.scrollTo(0, 0)
+  }, [])
 
   useEffect(() => {
     if (prefersReducedMotion) return
@@ -145,87 +147,67 @@ export default function App() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [progress, prefersReducedMotion])
 
-  /* ── ACT 1: Overlay con logo grande ───────────────────────────────────── */
-  /*  0.00 → 0.18: el overlay cubre todo y el logo flota                      */
-  /*  0.14 → 0.22: overlay se desvanece (logo escala y sube)                  */
-  const ov1Opacity = useTransform(progress, [0,    0.14, 0.22], [1, 1, 0])
-  const ov1Scale   = useTransform(progress, [0,    0.08, 0.22], [1, 1.06, 0.5])
-  const ov1Y       = useTransform(progress, [0,    0.08, 0.22], [0, -12, -180])
+  /* ── ACT 0: solo el ícono al cargar. ALUNZA y CORP entran por scroll ──────── */
+  /*  0.04 → 0.12 — ALUNZA se descubre de izq a der                          */
+  /*  0.09 → 0.17 — CORPORATIVO sube con fade                                */
+  /*  0.17 → 0.22 — hold: los 3 juntos, visibles                            */
+  /*  0.22 → 0.30 — exit: logo se encoge y sube                             */
+  const alunzaW  = useTransform(progress, [0.04, 0.12], ['0%', '100%'])
+  const corpOp   = useTransform(progress, [0.09, 0.17], [0, 1])
+  const corpYpx  = useTransform(progress, [0.09, 0.17], [16, 0])
+  const ov1Opacity = useTransform(progress, [0.22, 0.30], [1, 0])
+  const ov1Scale   = useTransform(progress, [0.22, 0.30], [1, 0.5])
+  const ov1Y       = useTransform(progress, [0.22, 0.30], [0, -180])
 
-  /* ── ACT 2: Headline épico (pantalla completa, stagger por línea) ──────── */
-  /*  Cada línea entra desde abajo con desfase, luego todas salen juntas       */
-  /*  arriba. El reverso también se anima (salen por abajo, entran por arriba) */
-  /*  La salida (0.39→0.43) es corta y suma un ligero "encogimiento" (scale)   */
-  /*  para que se lea como algo que se retira, no como un texto fantasma       */
-  /*  flotando encima del headline chico que entra después.                   */
-
-  // Línea 0 — "Construimos" (primera en entrar, última en salir al subir)
-  const l0Op = useTransform(progress, [0.20, 0.27, 0.37, 0.44], [0, 1, 1, 0])
-  const l0Y  = useTransform(progress, [0.20, 0.27, 0.37, 0.44], [90, 0, 0, -70])
-  const l0Sc = useTransform(progress, [0.37, 0.44], [1, 0.9])
-
+  /* ── ACT 2: Headline épico ──────────────────────────────────────────────── */
+  // Línea 0 — "Construimos"
+  const l0Op = useTransform(progress, [0.30, 0.37, 0.45, 0.52], [0, 1, 1, 0])
+  const l0Y  = useTransform(progress, [0.30, 0.37, 0.45, 0.52], [90, 0, 0, -70])
+  const l0Sc = useTransform(progress, [0.45, 0.52], [1, 0.9])
   // Línea 1 — "procesos sólidos"
-  const l1Op = useTransform(progress, [0.225, 0.295, 0.37, 0.44], [0, 1, 1, 0])
-  const l1Y  = useTransform(progress, [0.225, 0.295, 0.37, 0.44], [90, 0, 0, -70])
-  const l1Sc = useTransform(progress, [0.37, 0.44], [1, 0.9])
-
+  const l1Op = useTransform(progress, [0.32, 0.39, 0.45, 0.52], [0, 1, 1, 0])
+  const l1Y  = useTransform(progress, [0.32, 0.39, 0.45, 0.52], [90, 0, 0, -70])
+  const l1Sc = useTransform(progress, [0.45, 0.52], [1, 0.9])
   // Línea 2 — "para impulsar"
-  const l2Op = useTransform(progress, [0.25, 0.32, 0.37, 0.44], [0, 1, 1, 0])
-  const l2Y  = useTransform(progress, [0.25, 0.32, 0.37, 0.44], [90, 0, 0, -70])
-  const l2Sc = useTransform(progress, [0.37, 0.44], [1, 0.9])
+  const l2Op = useTransform(progress, [0.34, 0.41, 0.45, 0.52], [0, 1, 1, 0])
+  const l2Y  = useTransform(progress, [0.34, 0.41, 0.45, 0.52], [90, 0, 0, -70])
+  const l2Sc = useTransform(progress, [0.45, 0.52], [1, 0.9])
+  // Línea 3 — "organizaciones sólidas."
+  const l3Op = useTransform(progress, [0.36, 0.43, 0.45, 0.52], [0, 1, 1, 0])
+  const l3Y  = useTransform(progress, [0.36, 0.43, 0.45, 0.52], [90, 0, 0, -70])
+  const l3Sc = useTransform(progress, [0.45, 0.52], [1, 0.9])
 
-  // Línea 3 — "organizaciones sólidas." (última en entrar, primera en salir al subir)
-  const l3Op = useTransform(progress, [0.275, 0.345, 0.37, 0.44], [0, 1, 1, 0])
-  const l3Y  = useTransform(progress, [0.275, 0.345, 0.37, 0.44], [90, 0, 0, -70])
-  const l3Sc = useTransform(progress, [0.37, 0.44], [1, 0.9])
+  /* ── ACT 3: Párrafos — blur-to-focus individual ──────────────────────────── */
+  /*  Efecto: cada párrafo emerge del desenfoque al foco nítido, uno a uno.   */
+  /*  Completamente distinto al Acto 2 (que usaba slides verticales).         */
 
-  /* ── ACT 3: Headline pequeño + párrafos ────────────────────────────────── */
-  /*  CROSSFADE REAL con el Acto 2: usamos exactamente la misma ventana        */
-  /*  [0.37, 0.44] en la que el texto épico se apaga y encoge (l*Sc 1→0.9),    */
-  /*  así el headline chico aparece y se "asienta" (hScale 1.08→1) AL MISMO    */
-  /*  tiempo que el grande se retira. Se lee como una sola transformación      */
-  /*  continua (el texto grande se encoge en el chico) en vez de dos textos    */
-  /*  separados que se prenden/apagan con un corte en medio.                  */
-  const hOp = useTransform(
-    progress,
-    [0.37, 0.44,  0.58, 0.65,  0.80, 0.87],
-    [0,    1,     1,    0,     0,    1   ]
-  )
-  const hY = useTransform(
-    progress,
-    [0.37, 0.44,  0.58, 0.65,  0.80, 0.87],
-    [16,   0,     0,   -20,    20,   0   ]
-  )
-  // Entra ligeramente "grande" y se asienta a escala normal, en sincronía
-  // con el encogimiento del texto épico — refuerza la sensación de que es
-  // el mismo texto transformándose, no uno nuevo apareciendo.
-  const hScale = useTransform(progress, [0.37, 0.44], [1.08, 1])
+  // Párrafo 1: aparece desenfocado y se aclara
+  const par1Op    = useTransform(progress, [0.50, 0.58], [0, 1])
+  const par1BlurN = useTransform(progress, [0.50, 0.58], [10, 0])
+  const par1Blur  = useMotionTemplate`blur(${par1BlurN}px)`
 
-  // Divisor azul
-  const dvOp  = useTransform(
-    progress,
-    [0.48, 0.54,  0.58, 0.65,  0.80, 0.87],
-    [0,    1,     1,    0,     0,    1   ]
-  )
-  const dvScX = useTransform(progress, [0.48, 0.54], [0, 1])
+  // Párrafo 2: lo mismo, ligeramente desfasado
+  const par2Op    = useTransform(progress, [0.56, 0.64], [0, 1])
+  const par2BlurN = useTransform(progress, [0.56, 0.64], [10, 0])
+  const par2Blur  = useMotionTemplate`blur(${par2BlurN}px)`
 
-  // Párrafos (aparecen en Act 3, se quedan hasta el final)
-  const pOp = useTransform(progress, [0.50, 0.58], [0, 1])
-  const pY  = useTransform(progress, [0.50, 0.58], [32, 0])
+  /* Headline — solo en el estado final (Act 5). En Act 3 no aparece.        */
+  const hOp = useTransform(progress, [0.82, 0.88], [0, 1])
+  const hY  = useTransform(progress, [0.82, 0.88], [-20, 0])
 
   /* ── ACT 4: Pilares (stagger individual por columna) ───────────────────── */
-  const p0Op = useTransform(progress, [0.62, 0.69], [0, 1])
-  const p0Y  = useTransform(progress, [0.62, 0.69], [28, 0])
-  const p1Op = useTransform(progress, [0.635, 0.705], [0, 1])
-  const p1Y  = useTransform(progress, [0.635, 0.705], [28, 0])
-  const p2Op = useTransform(progress, [0.65, 0.72], [0, 1])
-  const p2Y  = useTransform(progress, [0.65, 0.72], [28, 0])
-  const p3Op = useTransform(progress, [0.665, 0.735], [0, 1])
-  const p3Y  = useTransform(progress, [0.665, 0.735], [28, 0])
-  const p4Op = useTransform(progress, [0.68, 0.75], [0, 1])
-  const p4Y  = useTransform(progress, [0.68, 0.75], [28, 0])
-  const p5Op = useTransform(progress, [0.695, 0.765], [0, 1])
-  const p5Y  = useTransform(progress, [0.695, 0.765], [28, 0])
+  const p0Op = useTransform(progress, [0.68, 0.74], [0, 1])
+  const p0Y  = useTransform(progress, [0.68, 0.74], [28, 0])
+  const p1Op = useTransform(progress, [0.695, 0.755], [0, 1])
+  const p1Y  = useTransform(progress, [0.695, 0.755], [28, 0])
+  const p2Op = useTransform(progress, [0.71, 0.77], [0, 1])
+  const p2Y  = useTransform(progress, [0.71, 0.77], [28, 0])
+  const p3Op = useTransform(progress, [0.725, 0.785], [0, 1])
+  const p3Y  = useTransform(progress, [0.725, 0.785], [28, 0])
+  const p4Op = useTransform(progress, [0.74, 0.80], [0, 1])
+  const p4Y  = useTransform(progress, [0.74, 0.80], [28, 0])
+  const p5Op = useTransform(progress, [0.755, 0.815], [0, 1])
+  const p5Y  = useTransform(progress, [0.755, 0.815], [28, 0])
 
   /* ── ACT 5: Logo pequeño, tagline y footer ─────────────────────────────── */
   const brandOp = useTransform(progress, [0.80, 0.87], [0, 1])
@@ -260,8 +242,8 @@ export default function App() {
   /* ─────────────────────────────────────────────────────────────────────── */
   return (
     <>
-      {/* Spacer: 600 vh crean el espacio de scroll para los 5 actos */}
-      <div aria-hidden="true" style={{ height: '600vh' }} />
+      {/* Spacer: 700 vh dan espacio cómodo para los 5 actos + hold del logo */}
+      <div aria-hidden="true" style={{ height: '700vh' }} />
 
       {/* Contenedor fixed: SIEMPRE en el viewport, nunca puede desaparecer */}
       <div className="fixed inset-0 isolate overflow-hidden bg-white">
@@ -290,37 +272,32 @@ export default function App() {
           {/* Bloque central */}
           <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center">
 
-            {/* Headline pequeño — Act 3 + Act 5 */}
-            <motion.div
-              style={{ opacity: hOp, y: hY, scale: hScale }}
-              className="flex w-full flex-col items-center"
+            {/* Headline — SOLO en Act 5 (estado final ensamblado) */}
+            {/*  En Act 3 los párrafos son protagonistas solos.         */}
+            <motion.h1
+              style={{ opacity: hOp, y: hY }}
+              className="hero-headline max-w-5xl text-balance text-[clamp(1.45rem,7vw,3.25rem)] font-light leading-[1.08] tracking-normal text-[#050b24] sm:text-[clamp(1.85rem,3.6vw,3.25rem)]"
             >
-              <h1 className="hero-headline max-w-5xl text-balance text-[clamp(1.45rem,7vw,3.25rem)] font-light leading-[1.08] tracking-normal text-[#050b24] sm:text-[clamp(1.85rem,3.6vw,3.25rem)]">
-                Construimos <strong>procesos sólidos</strong>
-                <br />
-                para impulsar <strong>organizaciones sólidas.</strong>
-              </h1>
-              <motion.span
-                style={{ opacity: dvOp, scaleX: dvScX }}
-                className="mt-2 block h-px w-16 origin-center bg-[#0052bc] sm:mt-3 sm:w-20"
-              />
-            </motion.div>
+              Construimos <strong>procesos sólidos</strong>
+              <br />
+              para impulsar <strong>organizaciones sólidas.</strong>
+            </motion.h1>
 
-            {/* Párrafos — Act 3 → final */}
-            <motion.div
-              style={{ opacity: pOp, y: pY }}
-              className="hero-copy mt-3 max-w-3xl space-y-1.5 text-balance text-[0.76rem] leading-[1.35] text-[#151b35] sm:mt-4 sm:space-y-2 sm:text-[clamp(0.86rem,1.05vw,1rem)] sm:leading-[1.45]"
-            >
-              <p>
+            {/* Párrafos — Act 3 → final                                       */}
+            {/*  Párrafo 1 emerge del blur al foco.                              */}
+            {/*  Párrafo 2 hace lo mismo, un poco después.                       */}
+            {/*  Nada de slides verticales — efecto editorial, cinematográfico.  */}
+            <div className="hero-copy max-w-2xl space-y-5 text-balance text-[clamp(1rem,1.6vw,1.3rem)] leading-[1.6] text-[#151b35]">
+              <motion.p style={{ opacity: par1Op, filter: par1Blur }}>
                 En ALUNZA integramos las capacidades corporativas que fortalecen la
                 operación y el desarrollo de un grupo empresarial.
-              </p>
-              <p>
+              </motion.p>
+              <motion.p style={{ opacity: par2Op, filter: par2Blur }}>
                 Bajo una visión compartida de colaboración, eficiencia y mejora
                 continua, impulsamos el crecimiento mediante una gestión profesional,
                 procesos confiables y una dirección estratégica orientada al futuro.
-              </p>
-            </motion.div>
+              </motion.p>
+            </div>
 
             {/* Pilares — Act 4 → final (stagger individual) */}
             <div className="pillar-grid mt-4 grid w-full max-w-5xl grid-cols-2 gap-y-3 sm:grid-cols-3 lg:mt-5 lg:grid-cols-6 lg:gap-y-0">
@@ -402,28 +379,42 @@ export default function App() {
           {/* Wrapper: escala + Y controlados por scroll (exit animation) */}
           <motion.div style={{ scale: ov1Scale, y: ov1Y }} className="logo-intro">
 
-            {/* 1. Ícono azul — cae desde arriba con spring bounce */}
-            {/*    Flotación idle empieza a los 1.2 s (tras el ensamblado) */}
+            {/* 1. Ícono azul — aparece con CSS al montar, luego flota */}
             <motion.img
               className="logo-icon"
               src="/ALUNZA LOGO FAVICON.png"
               alt=""
               aria-hidden="true"
-              animate={{ y: [0, -14, 0] }}
-              transition={{ delay: 1.2, duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+              animate={{ y: [0, -20, 0] }}
+              transition={{
+                duration: 0.5,
+                times: [0, 0.38, 1],
+                ease: ['easeOut', 'easeIn'],
+                repeat: Infinity,
+                repeatDelay: 1.1,
+                delay: 0.3,
+              }}
             />
 
-            {/* 2. ALUNZA.png — fuente original, barre de izquierda a derecha */}
-            <img
-              className="logo-alunza-img"
-              src="/ALUNZA.png"
-              alt="ALUNZA"
-              aria-hidden="true"
-            />
+            {/* 2. ALUNZA.png — wrapper con overflow:hidden cuyo ancho va 0%→1000% */}
+            {/*    La imagen dentro tiene ancho fijo; el padre la va descubriendo   */}
+            {/*    de izquierda a derecha conforme el usuario scrollea.             */}
+            <motion.div
+              style={{ width: alunzaW, overflow: 'hidden' }}
+              className="logo-alunza-wrapper"
+            >
+              <img
+                className="logo-alunza-img"
+                src="/ALUNZA.png"
+                alt="ALUNZA"
+                aria-hidden="true"
+              />
+            </motion.div>
 
-            {/* 3. CORPORATIVO.png — fuente original, sube con fade */}
-            <img
+            {/* 3. CORPORATIVO.png — sube con fade al scrollear */}
+            <motion.img
               className="logo-corp-img"
+              style={{ opacity: corpOp, y: corpYpx }}
               src="/CORPORATIVO.png"
               alt="Corporativo"
               aria-hidden="true"
