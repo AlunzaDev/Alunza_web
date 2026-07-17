@@ -70,7 +70,7 @@ function StaticLanding() {
 
         <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center">
           <div className="flex w-full flex-col items-center">
-            <h1 className="max-w-5xl text-balance text-[clamp(1.45rem,7vw,3.25rem)] font-light leading-[1.08] tracking-normal text-[#050b24] sm:text-[clamp(1.85rem,3.6vw,3.25rem)]">
+            <h1 className="max-w-5xl -translate-y-4 text-balance text-[clamp(1.45rem,7vw,3.25rem)] font-light leading-[1.08] tracking-normal text-[#050b24] sm:text-[clamp(1.85rem,3.6vw,3.25rem)]">
               Construimos <strong>procesos sólidos</strong>
               <br />
               para impulsar <strong>organizaciones sólidas.</strong>
@@ -193,7 +193,7 @@ export default function App() {
 
   /* Headline — solo en el estado final (Act 5). En Act 3 no aparece.        */
   const hOp = useTransform(progress, [0.82, 0.88], [0, 1])
-  const hY  = useTransform(progress, [0.82, 0.88], [-20, 0])
+  const hY  = useTransform(progress, [0.82, 0.88], [-36, -16])
 
   /* ── ACT 4: Pilares (stagger individual por columna) ───────────────────── */
   const p0Op = useTransform(progress, [0.68, 0.74], [0, 1])
