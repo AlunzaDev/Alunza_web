@@ -280,8 +280,8 @@ export default function App() {
   /* ─────────────────────────────────────────────────────────────────────── */
   return (
     <>
-      {/* Spacer: 700 vh dan espacio cómodo para los 5 actos + hold del logo */}
-      <div aria-hidden="true" style={{ height: '700vh' }} />
+      {/* Spacer: 950 vh dan más aire para recorrer los actos con calma */}
+      <div aria-hidden="true" style={{ height: '950vh' }} />
 
       {/* Contenedor fixed: SIEMPRE en el viewport, nunca puede desaparecer */}
       <div className="fixed inset-0 isolate overflow-hidden bg-white">
@@ -379,8 +379,8 @@ export default function App() {
               <span>© 2009 Alunza Corporativo</span>
               <span className="h-4 w-px bg-[#0052bc]" />
               <span>Más de 15 años</span>
-               <span className="h-4 w-px bg-[#0052bc]" />
-              <span>Sitio Oficial</span>
+              <span className="h-4 w-px bg-[#0052bc]" />
+              <span>Sitio oficial</span>
             </div>
           </motion.footer>
         </div>
@@ -427,20 +427,20 @@ export default function App() {
               src="/ALUNZA LOGO FAVICON.png"
               alt=""
               aria-hidden="true"
-              animate={{ y: [0, -20, 0] }}
+              animate={{ y: [0, -6, 0], scale: [1, 1.015, 1] }}
               transition={{
-                duration: 0.5,
-                times: [0, 0.38, 1],
-                ease: ['easeOut', 'easeIn'],
+                duration: 3.2,
+                times: [0, 0.5, 1],
+                ease: 'easeInOut',
                 repeat: Infinity,
-                repeatDelay: 1.1,
-                delay: 0.3,
+                repeatDelay: 0.4,
+                delay: 1.1,
               }}
             />
 
             {/* 2. ALUNZA.png — wrapper con overflow:hidden cuyo ancho va 0%→1000% */}
             {/*    La imagen dentro tiene ancho fijo; el padre la va descubriendo   */}
-            {/*    de izquierda a derecha conforme el usuario scrollea.             */}
+            {/*    de izquierda a derecha conforme el usuario hace scroll.          */}
             <motion.div
               style={{ width: alunzaW, overflow: 'hidden' }}
               className="logo-alunza-wrapper"
@@ -453,7 +453,7 @@ export default function App() {
               />
             </motion.div>
 
-            {/* 3. CORPORATIVO.png — sube con fade al scrollear */}
+            {/* 3. CORPORATIVO.png — sube con fade al hacer scroll */}
             <motion.img
               className="logo-corp-img"
               style={{ opacity: corpOp, y: corpYpx }}
