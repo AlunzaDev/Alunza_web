@@ -1,9 +1,10 @@
 ﻿.brand-lockup {
   flex: 0 0 auto;
   justify-self: center;
+  max-width: calc(100vw - 2rem);
   position: relative;
   top: clamp(0.85rem, 2.8svh, 2.2rem);
-  width: clamp(360px, 31vw, 620px);
+  width: clamp(220px, min(31vw, 32svh), 520px);
 }
 
 .brand-lockup-art {
