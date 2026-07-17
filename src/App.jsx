@@ -14,14 +14,37 @@ import {
 /* ─────────────────────────────────────────────────────────────────────────── */
 
 const pillars = [
-  { label: 'Estrategia',    icon: Landmark },
-  { label: 'Administración',icon: BriefcaseBusiness },
-  { label: 'Capital humano',icon: UsersRound },
-  { label: 'Finanzas',      icon: ChartPie },
-  { label: 'Tecnología',    icon: Monitor },
-  { label: 'Gestión',       icon: ChartNoAxesColumnIncreasing },
+  {
+    label: 'Estrategia',
+    icon: Landmark,
+    description: 'Dirección clara para cumplir objetivos y alinear prioridades.',
+  },
+  {
+    label: 'Administración',
+    icon: BriefcaseBusiness,
+    description: 'Procesos ordenados para elevar eficiencia, control y continuidad.',
+  },
+  {
+    label: 'Capital humano',
+    icon: UsersRound,
+    description: 'Talento, cultura y liderazgo para equipos más sólidos.',
+  },
+  {
+    label: 'Finanzas',
+    icon: ChartPie,
+    description: 'Información confiable para cuidar recursos y tomar mejores decisiones.',
+  },
+  {
+    label: 'Tecnología',
+    icon: Monitor,
+    description: 'Herramientas digitales que conectan operación, datos y crecimiento.',
+  },
+  {
+    label: 'Gestión',
+    icon: ChartNoAxesColumnIncreasing,
+    description: 'Seguimiento ejecutivo para mejorar resultados de forma constante.',
+  },
 ]
-
 /* ─────────────────────────────────────────────────────────────────────────── */
 /*  HOOK: prefers-reduced-motion                                                */
 /*  Detecta la preferencia del sistema y reacciona si cambia en vivo.           */
@@ -41,6 +64,22 @@ function usePrefersReducedMotion() {
   }, [])
 
   return reduced
+}
+
+function PillarContent({ label, description, Icon }) {
+  return (
+    <button
+      type="button"
+      className="pillar-trigger group flex flex-col items-center gap-1.5"
+      aria-label={`${label}: ${description}`}
+    >
+      <Icon aria-hidden="true" size={32} strokeWidth={1.8} />
+      <span>{label}</span>
+      <span className="pillar-detail" role="tooltip">
+        {description}
+      </span>
+    </button>
+  )
 }
 
 /* ─────────────────────────────────────────────────────────────────────────── */
@@ -91,12 +130,9 @@ function StaticLanding() {
           </div>
 
           <div className="pillar-grid mt-4 grid w-full max-w-5xl grid-cols-2 gap-y-3 sm:grid-cols-3 lg:mt-5 lg:grid-cols-6 lg:gap-y-0">
-            {pillars.map(({ label, icon: Icon }) => (
+            {pillars.map(({ label, description, icon: Icon }) => (
               <div key={label} className="pillar">
-                <div className="flex flex-col items-center gap-1.5">
-                  <Icon aria-hidden="true" size={32} strokeWidth={1.8} />
-                  <span>{label}</span>
-                </div>
+                <PillarContent label={label} description={description} Icon={Icon} />
               </div>
             ))}
           </div>
@@ -306,7 +342,7 @@ export default function App() {
 
             {/* Pilares — Act 4 → final (stagger individual) */}
             <div className="pillar-grid mt-4 grid w-full max-w-5xl grid-cols-2 gap-y-3 sm:grid-cols-3 lg:mt-5 lg:grid-cols-6 lg:gap-y-0">
-              {pillars.map(({ label, icon: Icon }, i) => (
+              {pillars.map(({ label, description, icon: Icon }, i) => (
                 <motion.div
                   key={label}
                   className="pillar"
@@ -322,8 +358,7 @@ export default function App() {
                     }}
                     className="flex flex-col items-center gap-1.5"
                   >
-                    <Icon aria-hidden="true" size={32} strokeWidth={1.8} />
-                    <span>{label}</span>
+                    <PillarContent label={label} description={description} Icon={Icon} />
                   </motion.div>
                 </motion.div>
               ))}
