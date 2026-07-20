@@ -1,6 +1,8 @@
 import { useMotionTemplate, useTransform } from 'framer-motion'
+import { useIsMobile } from './useIsMobile'
 
 export function useLandingMotion(progress) {
+  const isMobile = useIsMobile()
   const intro = {
     alunzaWidth: useTransform(progress, [0.04, 0.12], ['0%', '100%']),
     corpOpacity: useTransform(progress, [0.09, 0.17], [0, 1]),
@@ -46,8 +48,8 @@ export function useLandingMotion(progress) {
     firstBlur: useMotionTemplate`blur(${useTransform(progress, [0.50, 0.58], [10, 0])}px)`,
     secondOpacity: useTransform(progress, [0.56, 0.64], [0, 1]),
     secondBlur: useMotionTemplate`blur(${useTransform(progress, [0.56, 0.64], [10, 0])}px)`,
-    y: useTransform(progress, [0.50, 0.68, 0.78, 0.88], [-82, -82, -16, 0]),
-    scale: useTransform(progress, [0.50, 0.68, 0.78, 0.88], [1.18, 1.18, 1.04, 1]),
+    y: useTransform(progress, [0.50, 0.68, 0.78, 0.88], isMobile ? [-32, -32, -8, 0] : [-82, -82, -16, 0]),
+    scale: useTransform(progress, [0.50, 0.68, 0.78, 0.88], isMobile ? [1.04, 1.04, 1.01, 1] : [1.18, 1.18, 1.04, 1]),
   }
 
   const finalHeadline = {

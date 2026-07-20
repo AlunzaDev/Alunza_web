@@ -6,8 +6,7 @@ export function LandingFooter({ motionStyle }) {
   return (
     <Tag style={motionStyle} className="relative z-10 w-full">
       <p className="tagline mx-auto max-w-4xl text-center text-balance font-light text-[#12162d]">
-        ALUNZA no es una marca.
-        <br />
+        ALUNZA no es una marca.{' '}
         Es un movimiento <span className="tagline-blue">hacia arriba.</span>
       </p>
       <div className="footer-meta flex items-center justify-center text-[#1b223d]">

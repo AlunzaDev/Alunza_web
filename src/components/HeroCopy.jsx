@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 export function HeroCopy({ motionValues }) {
   if (!motionValues) {
     return (
-      <div className="hero-copy max-w-3xl text-balance text-[#151b35]">
+      <div className="hero-copy max-w-2xl text-balance text-[#151b35]">
         <p>
           En ALUNZA integramos las capacidades corporativas que fortalecen la operación y el
           desarrollo de un grupo empresarial.

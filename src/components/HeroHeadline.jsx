@@ -11,8 +11,7 @@ export function HeroHeadline({ motionStyle, className = '' }) {
         className,
       ].join(' ')}
     >
-      Construimos <strong>procesos sólidos</strong>
-      <br />
+      Construimos <strong>procesos sólidos</strong>{' '}
       para impulsar <strong>organizaciones sólidas.</strong>
     </Tag>
   )

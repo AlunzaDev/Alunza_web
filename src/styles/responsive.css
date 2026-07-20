@@ -1,5 +1,12 @@
-﻿@media (max-width: 1023px) {
+@media (max-width: 1023px) {
   .pillar:nth-child(3)::after {
+    display: none;
+  }
+}
+
+/* Tablet: grid 3 columnas — ocultar divisor al final de cada fila */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .pillar:nth-child(3n)::after {
     display: none;
   }
 }
@@ -342,5 +349,40 @@
   .tagline {
     font-size: 0.74rem;
     letter-spacing: 0.11em;
+  }
+}
+
+/* Tooltips de pilares extremos en móvil — evitar que se salgan del viewport */
+@media (max-width: 639px) {
+  .pillar:first-child .pillar-detail {
+    left: 0;
+    transform: translateX(0) translateY(8px) scale(0.96);
+  }
+
+  .pillar:first-child .pillar-trigger:hover .pillar-detail,
+  .pillar:first-child .pillar-trigger:focus-visible .pillar-detail {
+    transform: translateX(0) translateY(0) scale(1);
+  }
+
+  .pillar:first-child .pillar-detail::after {
+    left: clamp(15px, 15%, 50%);
+    transform: rotate(45deg);
+  }
+
+  .pillar:last-child .pillar-detail {
+    left: auto;
+    right: 0;
+    transform: translateX(0) translateY(8px) scale(0.96);
+  }
+
+  .pillar:last-child .pillar-trigger:hover .pillar-detail,
+  .pillar:last-child .pillar-trigger:focus-visible .pillar-detail {
+    transform: translateX(0) translateY(0) scale(1);
+  }
+
+  .pillar:last-child .pillar-detail::after {
+    left: auto;
+    right: clamp(15px, 15%, 50%);
+    transform: rotate(45deg);
   }
 }
