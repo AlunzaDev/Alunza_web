@@ -24,7 +24,7 @@
 }
 
 .pillar-grid {
-  margin-top: clamp(2rem, 4.8svh, 3.25rem);
+  margin-top: clamp(2rem, 4.8dvh, 3.25rem);
 }
 
 .pillar-trigger {

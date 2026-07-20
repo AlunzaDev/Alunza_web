@@ -34,13 +34,15 @@
 
 .scene-layout {
   display: grid;
-  gap: clamp(0.55rem, 1.55svh, 1.15rem);
+  gap: clamp(0.55rem, 1.55dvh, 1.15rem);
   grid-template-rows: auto minmax(0, 1fr) auto;
   justify-content: initial;
   justify-items: center;
-  max-height: 100svh;
-  min-height: 100svh;
-  padding-block: clamp(0.75rem, 2.1svh, 1.25rem) clamp(0.65rem, 1.8svh, 1rem);
+  max-height: 100dvh;
+  min-height: 100dvh;
+  padding-block:
+    max(clamp(0.75rem, 2.1dvh, 1.25rem), env(safe-area-inset-top))
+    max(clamp(0.65rem, 1.8dvh, 1rem), env(safe-area-inset-bottom));
   width: 100%;
 }
 
@@ -51,15 +53,15 @@
 }
 
 .hero-headline {
-  font-size: clamp(1.65rem, min(7vw, 6.7svh), 3.65rem);
+  font-size: clamp(1.65rem, min(7vw, 6.7dvh), 3.65rem);
   line-height: 1.04;
   margin: 0;
 }
 
 .hero-copy {
-  font-size: clamp(1.18rem, min(1.9vw, 2.9svh), 1.58rem);
+  font-size: clamp(1.18rem, min(1.9vw, 2.9dvh), 1.58rem);
   line-height: 1.38;
-  margin-top: clamp(0.8rem, 1.75svh, 1.15rem);
+  margin-top: clamp(0.8rem, 1.75dvh, 1.15rem);
 }
 
 .hero-copy p {
@@ -67,14 +69,14 @@
 }
 
 .hero-copy p + p {
-  margin-top: clamp(0.5rem, 1.2svh, 0.8rem);
+  margin-top: clamp(0.5rem, 1.2dvh, 0.8rem);
 }
 
 .footer-meta {
   flex-wrap: wrap;
-  font-size: clamp(0.62rem, min(0.72vw, 1.35svh), 0.78rem);
+  font-size: clamp(0.62rem, min(0.72vw, 1.35dvh), 0.78rem);
   gap: clamp(0.55rem, 1.15vw, 1rem);
-  margin-top: clamp(0.4rem, 1.1svh, 0.7rem);
+  margin-top: clamp(0.4rem, 1.1dvh, 0.7rem);
   row-gap: 0.18rem;
 }
 
@@ -87,7 +89,7 @@
 }
 
 .tagline {
-  font-size: clamp(0.78rem, min(1.45vw, 2.35svh), 1.18rem);
+  font-size: clamp(0.78rem, min(1.45vw, 2.35dvh), 1.18rem);
   letter-spacing: clamp(0.12em, 0.45vw, 0.2em);
   line-height: 1.34;
   margin: 0;
@@ -101,7 +103,7 @@
 }
 
 .big-line {
-  font-size: clamp(1.9rem, min(6vw, 9.6svh), 5.25rem);
+  font-size: clamp(1.9rem, min(6vw, 9.6dvh), 5.25rem);
   line-height: 1.04;
 }
 

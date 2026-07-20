@@ -7,12 +7,12 @@
 
 .logo-icon {
   animation: logo-icon-in 0.85s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
-  width: clamp(76px, min(14vw, 23svh), 155px);
+  width: clamp(76px, min(14vw, 23dvh), 155px);
 }
 
 .scroll-cue {
   align-items: center;
-  bottom: clamp(1.35rem, 6.5svh, 4.5rem);
+  bottom: clamp(1.35rem, 6.5dvh, 4.5rem);
   color: #0052bc;
   display: flex;
   flex-direction: column;
@@ -37,12 +37,12 @@
 
 .logo-alunza-img {
   display: block;
-  width: clamp(150px, min(36vw, 54svh), 480px);
+  width: clamp(150px, min(36vw, 54dvh), 480px);
 }
 
 .logo-corp-img {
   margin-top: clamp(0.1rem, 0.5vw, 0.35rem);
-  width: clamp(122px, min(28vw, 42svh), 380px);
+  width: clamp(122px, min(28vw, 42dvh), 380px);
 }
 
 @keyframes logo-icon-in {
