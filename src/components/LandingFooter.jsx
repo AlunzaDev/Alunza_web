@@ -13,12 +13,13 @@ export function LandingFooter({ motionStyle }) {
         <span>© 2009 Alunza Corporativo</span>
         <span className="h-4 w-px bg-[#0052bc]" />
         <span>Más de 15 años</span>
-        {motionStyle && (
-          <>
-            <span className="h-4 w-px bg-[#0052bc]" />
-            <span>Sitio oficial</span>
-          </>
-        )}
+        <span className="h-4 w-px bg-[#0052bc]" />
+        <a
+          className="footer-privacy-link"
+          href="/politica-de-privacidad/"
+        >
+          Política de privacidad
+        </a>
       </div>
     </Tag>
   )

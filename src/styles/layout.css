@@ -80,6 +80,19 @@
   row-gap: 0.18rem;
 }
 
+.footer-privacy-link {
+  color: inherit;
+  text-decoration-color: rgba(0, 82, 188, 0.45);
+  text-underline-offset: 0.2em;
+  transition: color 160ms ease, text-decoration-color 160ms ease;
+}
+
+.footer-privacy-link:hover,
+.footer-privacy-link:focus-visible {
+  color: #004db3;
+  text-decoration-color: currentColor;
+}
+
 .scene-layout footer {
   align-self: end;
   display: grid;
