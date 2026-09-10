@@ -1,3 +1,4 @@
+import { useSpring } from 'framer-motion'
 import { useLandingMotion } from './hooks/useLandingMotion'
 import { usePrefersReducedMotion } from './hooks/usePrefersReducedMotion'
 import { useScrollProgress } from './hooks/useScrollProgress'
@@ -10,7 +11,8 @@ import { SceneBackground } from './components/SceneBackground'
 export default function App() {
   const prefersReducedMotion = usePrefersReducedMotion()
   const { progress, isAtIntro } = useScrollProgress({ disabled: prefersReducedMotion })
-  const motion = useLandingMotion(progress)
+  const smoothProgress = useSpring(progress, { stiffness: 240, damping: 30, mass: 0.4 })
+  const motion = useLandingMotion(prefersReducedMotion ? progress : smoothProgress)
 
   if (prefersReducedMotion) {
     return <StaticLanding />

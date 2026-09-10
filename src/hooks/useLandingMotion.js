@@ -54,7 +54,7 @@ export function useLandingMotion(progress) {
 
   const finalHeadline = {
     opacity: useTransform(progress, [0.82, 0.88], [0, 1]),
-    y: useTransform(progress, [0.82, 0.88], [-36, -16]),
+    y: useTransform(progress, [0.82, 0.88], [-36, 0]),
   }
 
   const pillars = [

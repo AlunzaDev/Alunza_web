@@ -50,36 +50,45 @@
     <main>
       <p class="eyebrow">AlunCheck</p>
       <h1>Política de privacidad</h1>
-      <p class="updated"><strong>Última actualización:</strong> 8 de septiembre de 2026</p>
+      <p class="updated"><strong>Última actualización:</strong> 9 de septiembre de 2026</p>
 
       <p class="summary">
-        Esta política explica cómo <strong>Alunza Corporativo</strong> (en adelante, “Alunza”, “nosotros” o “el responsable”) recopila, utiliza, almacena y protege los datos personales tratados mediante la aplicación móvil <strong>AlunCheck</strong>.
+        Esta política explica cómo <strong>Alunza Corporativo</strong> recopila, utiliza, almacena y protege los datos personales tratados mediante la aplicación móvil interna <strong>AlunCheck</strong>.
       </p>
 
       <section aria-labelledby="alcance">
         <h2 id="alcance">1. Alcance y responsable</h2>
-        <p>Esta política aplica a las personas que utilizan AlunCheck para acceder a las funciones habilitadas por su organización, como autenticación, registro de actividades o comprobación de asistencia. Alunza Corporativo es responsable del tratamiento descrito en esta política.</p>
+        <!-- PENDIENTE: sustituir el nombre comercial por la razón social y agregar su domicilio completo. -->
+        <p>AlunCheck es una herramienta privada de uso laboral. Su acceso está limitado a colaboradores autorizados de las empresas del corporativo y no está destinada al público general. Se utiliza para autenticar al colaborador y registrar su asistencia de entrada y salida en el espacio de trabajo asignado.</p>
+        <p>Alunza Corporativo es identificado provisionalmente como responsable del tratamiento. Antes de publicar esta versión deberán incorporarse la razón social y el domicilio completos del responsable, así como la relación aplicable con las empresas que administran cuentas o consultan registros.</p>
       </section>
 
       <section aria-labelledby="datos">
         <h2 id="datos">2. Datos que recopilamos</h2>
-        <p>Según las funciones habilitadas y los permisos que otorgues, AlunCheck puede tratar:</p>
+        <p>AlunCheck puede tratar las siguientes categorías de información:</p>
         <ul>
-          <li><strong>Datos de cuenta e identificación:</strong> nombre, identificador de usuario o empleado, correo electrónico, organización a la que perteneces y credenciales o tokens de autenticación.</li>
-          <li><strong>Ubicación:</strong> ubicación aproximada o precisa del dispositivo al realizar registros que requieren validar el lugar de una actividad. La aplicación solicita el permiso correspondiente del sistema operativo.</li>
-          <li><strong>Fotografías y cámara:</strong> imágenes capturadas por ti dentro de la aplicación como evidencia de una actividad o registro. AlunCheck accede a la cámara únicamente cuando utilizas una función que lo requiere y con tu autorización.</li>
-          <li><strong>Información del dispositivo y uso:</strong> modelo, sistema operativo, versión de la aplicación, dirección IP, identificadores técnicos, fecha y hora de acceso, registros de actividad, errores y diagnósticos.</li>
+          <li><strong>Identificación y contacto:</strong> identificador interno UUID, nombre completo, correo electrónico y su estado de verificación, número telefónico, edad, fecha de nacimiento, género, fotografía de perfil, RFC y Número de Seguridad Social.</li>
+          <li><strong>Información laboral:</strong> empresa, área, puesto, coordinador asignado, información y estado contractual, fecha de contratación, lugares de trabajo, grupos de horario, días disponibles, permisos, módulos habilitados y método de checado asignado.</li>
+          <li><strong>Cuenta y autenticación:</strong> estado y rol de la cuenta, identificador del dispositivo vinculado, fechas de creación y actualización y tokens de sesión. La contraseña se transforma mediante bcrypt y se conserva únicamente como un hash; no se almacena en texto legible. Los tokens de recuperación y verificación también se almacenan como hashes.</li>
+          <li><strong>Ubicación precisa:</strong> se obtiene únicamente cuando el colaborador realiza un checado de entrada o salida, para validar que se encuentra en el espacio de trabajo autorizado. AlunCheck no realiza seguimiento de ubicación en segundo plano.</li>
+          <li><strong>Fotografías:</strong> fotografía del lugar tomada durante el checado como evidencia de asistencia y fotografía de perfil cargada por personal administrador desde el panel de gestión.</li>
+          <li><strong>Datos del dispositivo y seguridad:</strong> identificador técnico del dispositivo, utilizado con apoyo de Firebase para vincular la cuenta a un solo dispositivo y reducir el uso de la cuenta por otra persona.</li>
+          <li><strong>Registros técnicos:</strong> dirección IP, método y dirección de la solicitud, código de respuesta, fecha, hora, identificador de solicitud, errores y trazas técnicas. No recopilamos directamente el modelo del dispositivo, IMEI, número de serie ni identificadores publicitarios.</li>
         </ul>
-        <p>AlunCheck no utiliza la cámara ni recopila ubicación sin los permisos aplicables. Puedes administrar estos permisos desde la configuración de tu dispositivo; algunas funciones pueden dejar de estar disponibles si los desactivas.</p>
+        <p>AlunCheck puede solicitar la autenticación biométrica disponible en el dispositivo para comprobar que el checado lo realiza la persona autorizada. La validación es ejecutada por el sistema operativo: AlunCheck no recibe ni almacena huellas digitales, imágenes faciales o plantillas biométricas; únicamente recibe el resultado de la autenticación.</p>
+        <p>La cámara y la ubicación precisa son necesarias para completar el registro de asistencia. El colaborador puede administrar estos permisos desde la configuración de Android, pero no podrá completar el checado si los rechaza o desactiva.</p>
       </section>
 
       <section aria-labelledby="finalidades">
         <h2 id="finalidades">3. Para qué usamos los datos</h2>
         <ul>
-          <li>Crear, autenticar y proteger tu acceso a AlunCheck.</li>
-          <li>Proporcionar las funciones solicitadas y validar registros de actividad, asistencia o ubicación.</li>
-          <li>Mostrar a tu organización los registros generados en el contexto de la relación laboral o de prestación de servicios correspondiente.</li>
-          <li>Prevenir fraude, accesos no autorizados y otros incidentes de seguridad.</li>
+          <li>Crear y administrar la cuenta laboral del colaborador.</li>
+          <li>Autenticar el acceso mediante correo electrónico o número telefónico y contraseña.</li>
+          <li>Registrar la entrada y salida y validar que el colaborador se encuentre en el espacio de trabajo asignado.</li>
+          <li>Generar evidencia fotográfica del lugar en el que se realiza el checado.</li>
+          <li>Vincular la cuenta a un dispositivo y comprobar que el registro sea realizado por la persona autorizada.</li>
+          <li>Permitir la administración de personal, horarios, lugares de trabajo, incidencias y registros laborales.</li>
+          <li>Prevenir suplantaciones, fraude, accesos no autorizados y otros incidentes de seguridad.</li>
           <li>Diagnosticar fallas, dar soporte y mejorar el desempeño de la aplicación.</li>
           <li>Cumplir obligaciones legales y atender solicitudes de autoridades competentes.</li>
         </ul>
@@ -88,25 +97,30 @@
 
       <section aria-labelledby="comparticion">
         <h2 id="comparticion">4. Cuándo compartimos información</h2>
-        <p>Podemos compartir los datos necesarios con la organización que autorizó tu cuenta y con proveedores que nos ayudan a operar AlunCheck, por ejemplo servicios de alojamiento, almacenamiento, autenticación, monitoreo y soporte técnico. Estos proveedores reciben únicamente la información necesaria para prestar sus servicios y deben protegerla.</p>
+        <!-- PENDIENTE: identificar las empresas y áreas autorizadas que acceden a cada categoría. -->
+        <p>Los datos pueden ponerse a disposición de la empresa del corporativo que mantiene la relación laboral con el colaborador y del personal autorizado que administra AlunCheck. Antes de publicar esta versión deberán identificarse las empresas, áreas o roles que pueden consultar cuentas, ubicaciones, fotografías y checadas.</p>
+        <p>Utilizamos Firebase para apoyar la identificación y vinculación del dispositivo, y DigitalOcean como proveedor de infraestructura, alojamiento y almacenamiento. Estos proveedores tratan únicamente la información necesaria para prestar sus servicios bajo las condiciones de seguridad aplicables.</p>
         <p>También podremos revelar información cuando la ley lo exija, para responder a un proceso legal válido o para proteger derechos, seguridad e integridad de las personas y de nuestros servicios. No compartimos información con terceros independientes para sus propios fines publicitarios.</p>
       </section>
 
       <section aria-labelledby="conservacion">
         <h2 id="conservacion">5. Conservación de los datos</h2>
-        <p>Conservamos los datos mientras tu cuenta se encuentre activa y durante el tiempo necesario para proporcionar AlunCheck, mantener los registros operativos solicitados por tu organización y cumplir obligaciones legales, contractuales, fiscales, laborales o de seguridad. Cuando la información deja de ser necesaria, la eliminamos o anonimizamos de forma segura.</p>
-        <p>Las copias de respaldo pueden permanecer durante un periodo adicional limitado hasta ser sobrescritas conforme a nuestros ciclos de respaldo. Una solicitud de eliminación puede estar sujeta a los periodos de conservación obligatorios previstos por la legislación aplicable.</p>
+        <!-- PENDIENTE: reemplazar este párrafo con los plazos aprobados por la empresa para cada categoría. -->
+        <p>Los datos se conservan mientras la cuenta se encuentra activa. Actualmente, la desactivación de una cuenta no elimina automáticamente su información. Un administrador autorizado puede limpiar los datos asociados o eliminar permanentemente la cuenta, salvo cuando existan registros de auditoría u obligaciones legales que requieran su conservación.</p>
+        <p>Antes de publicar esta versión deberán establecerse los periodos aplicables a datos personales y laborales, cuentas, checadas, ubicaciones, fotografías de evidencia, fotografías de perfil, auditorías, registros técnicos y copias de respaldo. Una vez concluido el plazo correspondiente, la información será eliminada o anonimizada de forma segura.</p>
       </section>
 
       <section aria-labelledby="seguridad">
         <h2 id="seguridad">6. Almacenamiento y seguridad</h2>
-        <p>Aplicamos medidas administrativas, técnicas y físicas razonables para proteger la información contra pérdida, alteración, acceso, uso o divulgación no autorizados. Estas medidas incluyen controles de acceso, autenticación, comunicaciones cifradas y monitoreo de los sistemas. Ningún método de transmisión o almacenamiento es completamente infalible, por lo que no es posible garantizar seguridad absoluta.</p>
+        <p>La información se almacena y procesa mediante infraestructura de DigitalOcean ubicada en Santa Clara, California, Estados Unidos. Por ello, los datos pueden ser tratados fuera de México para proporcionar el alojamiento, almacenamiento, disponibilidad y seguridad de AlunCheck.</p>
+        <p>Aplicamos medidas administrativas, técnicas y físicas razonables para proteger la información contra pérdida, alteración, acceso, uso o divulgación no autorizados. Estas medidas incluyen comunicaciones mediante HTTPS, contraseñas almacenadas como hashes, autenticación mediante tokens, controles de acceso, vinculación del dispositivo y monitoreo técnico. Ningún método de transmisión o almacenamiento es completamente infalible, por lo que no es posible garantizar seguridad absoluta.</p>
       </section>
 
       <section aria-labelledby="derechos">
         <h2 id="derechos">7. Tus derechos y eliminación de datos</h2>
-        <p>Puedes solicitar acceso, corrección, actualización, oposición o eliminación de tus datos personales, así como revocar tu consentimiento cuando corresponda. Para hacerlo, envía un correo con el asunto “Derechos de privacidad AlunCheck”, tu nombre, la organización asociada a tu cuenta y una descripción de tu solicitud.</p>
-        <p>Podremos pedir información razonable para verificar tu identidad. Responderemos conforme a los plazos de la legislación aplicable. Si tu cuenta fue proporcionada por una organización, también puedes dirigir la solicitud a su área de administración o recursos humanos.</p>
+        <!-- PENDIENTE: confirmar correo, procedimiento y participación de Recursos Humanos. -->
+        <p>El colaborador podrá solicitar acceso, rectificación, cancelación u oposición respecto de sus datos personales, así como su corrección o eliminación cuando legalmente corresponda. La solicitud deberá incluir su nombre, empresa, medio para recibir una respuesta, descripción de los datos y el derecho que desea ejercer. Podremos solicitar información razonable para verificar su identidad.</p>
+        <p>Antes de publicar esta versión deberán confirmarse el correo responsable de recibir las solicitudes y si estas se atenderán directamente o a través del área de Recursos Humanos. La eliminación puede estar limitada por obligaciones legales, laborales, fiscales, contractuales o por registros de auditoría que deban conservarse.</p>
       </section>
 
       <section aria-labelledby="menores">
@@ -121,10 +135,12 @@
 
       <section aria-labelledby="contacto">
         <h2 id="contacto">10. Contacto</h2>
+        <!-- PENDIENTE: agregar razón social, domicilio y correo confirmados. -->
         <p>Para consultas o solicitudes relacionadas con privacidad y protección de datos:</p>
         <div class="contact">
           <strong>Alunza Corporativo</strong><br />
-          Correo: <a href="mailto:privacidad@alunzacorporativo.com">privacidad@alunzacorporativo.com</a><br />
+          Responsable y domicilio: pendientes de confirmación<br />
+          Correo de privacidad: pendiente de confirmación<br />
           Sitio web: <a href="https://alunzacorporativo.com/">alunzacorporativo.com</a>
         </div>
       </section>

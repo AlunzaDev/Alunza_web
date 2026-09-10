@@ -2,8 +2,13 @@
   color: #004db3;
   display: flex;
   justify-content: center;
-  min-height: 72px;
+  min-height: clamp(72px, 8dvh, 100px);
   position: relative;
+}
+
+.pillar svg {
+  height: clamp(32px, 3.4dvh, 42px);
+  width: clamp(32px, 3.4dvh, 42px);
 }
 
 .pillar:not(:last-child)::after {
@@ -18,13 +23,13 @@
 
 .pillar span {
   color: #060a1b;
-  font-size: 0.74rem;
+  font-size: clamp(0.74rem, 0.85dvh, 0.92rem);
   font-weight: 800;
   text-transform: uppercase;
 }
 
 .pillar-grid {
-  margin-top: clamp(2rem, 4.8dvh, 3.25rem);
+  margin-top: clamp(2rem, 4.8dvh, 4.75rem);
 }
 
 .pillar-trigger {
